@@ -1,5 +1,19 @@
 import java.util.Scanner;
 import java.util.stream.IntStream;
+/*
+Writing the algorithm
+create an array c[0...k], where k is the maximum element in original element
+for i from 0 to k:
+    c[i] = 0
+for i from 1 to ar.length:
+    c[ar[i]] = c[ar[i]] + 1
+for j from 1 to k:
+    c[i] = c[i-1] + c[i]
+for i from 0 to ar.length:
+    b[c[ar[i]]] = ar[i]
+    c[ar[i]] = c[ar[i]] - 1
+b[c[ar[i]] is the sorted array
+ */
 
 public class Count_sort {
     public static void main(String[] args) {
@@ -30,9 +44,9 @@ public class Count_sort {
 
     public static int[] countSort(int ar[]) {
         int tempSize = maximum(ar, 0);
-        System.out.println(tempSize);
-        int sortedAr[] = new int[ar.length+1];
-        //sortedAr[0] = 0;
+
+        int sortedAr[] = new int[ar.length];
+
         int[] tempAr = new int[tempSize + 1]; //tempSize is an element so it should be in the tempAr, so tempSize+1
 
         for (int i = 0; i < ar.length; i++) {
@@ -44,14 +58,16 @@ public class Count_sort {
             tempAr[i] = tempAr[i - 1] + tempAr[i]; //find the number of elements less than or equal to i
         }
 
-        for (int i = ar.length -1; i >=0; i--) {
-            sortedAr[tempAr[ar[i]]] = ar[i]; //putting the i in its correct position
+        for (int i = 0; i <=ar.length-1; i++) {
+            sortedAr[tempAr[ar[i]]-1] = ar[i]; //putting the i in its correct position
             tempAr[ar[i]]--;
         }
-        return IntStream.range(0, sortedAr.length) //this is done to remove the zeroth index from sorted array
+
+        return sortedAr;
+        /*return IntStream.range(0, sortedAr.length) //this is done to remove the zeroth index from sorted array
                 .filter(i -> i != 0)
                 .map(i -> sortedAr[i])
-                .toArray();
+                .toArray();*/
     }
 
     public static void display(int[] ar) {

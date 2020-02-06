@@ -5,7 +5,7 @@ This sorting technique is more efficient then the earlier one, as in this we mov
 hence we move three steps in one go.
  */
 
-public class hoare_quicksort {
+public class Hoare_quicksort {
 
     public static void display(int[] ar, int r) {
         for (int i = 0; i < r; i++) {
